@@ -1,6 +1,6 @@
 {
-	"name": "babel-test",
-	"version": "1.0.0",
+	"name": "sn-babel-compiler",
+	"version": "0.0.1",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
