@@ -1,17 +1,25 @@
 const babel = require('@babel/core');
 const process = require('process');
+const express = require('express');
+const app = express();
 
-const code = process.argv[2];
+app.use(express.json());
 
-function compile(code) {
-const compiled = babel.transformSync(code, {
-    presets: ["@babel/preset-env"]
+
+app.post('/compile', async (req, res, next) => {
+    var code = req.body.code;
+    const compiledCode = compile(code);
+    res.write(compiledCode);
+    res.end();
+    next();
 });
 
-
-return compiled.code || "An error occurred";
-
+function compile(code) {
+    const compiled = babel.transformSync(code, {
+        presets: ["@babel/preset-env"]
+    });
+    return compiled.code || "An error occurred";
 }
-// console.log("Before: " + code + "\nCompiled:");
 
-console.log(compile(code))
+
+app.listen(3000);
